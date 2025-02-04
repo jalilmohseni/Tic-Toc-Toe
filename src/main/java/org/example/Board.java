@@ -32,12 +32,20 @@ public class Board implements Constants {
     }
 
     /**
-     * Checks if the board is full.
-     * @return true if the board is full, false otherwise
+     * Checks if the board is full by scanning for empty spaces.
+     * @return true if the board is full, false otherwise.
      */
     public boolean isFull() {
-        return markCount == 9;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (theBoard[i][j] == Constants.SPACE_CHAR) {
+                    return false; // ✅ If an empty space exists, board is NOT full
+                }
+            }
+        }
+        return true; // ✅ No empty spaces found, board is full
     }
+
 
     /**
      * Checks if the X player has won.

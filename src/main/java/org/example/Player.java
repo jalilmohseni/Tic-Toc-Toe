@@ -41,26 +41,34 @@ public abstract class Player {
      * Initiates the player's turn. The player makes a move, and the turn passes to the opponent.
      * The game continues until a player wins or the board is full.
      */
+    /**
+     * Initiates the player's turn. The player makes a move, and the turn passes to the opponent.
+     * The game continues until a player wins or the board is full.
+     */
     public void play() {
-        while (true) {
-            makeMove();
-            board.display();
-            if (board.xWins()) {
-                System.out.println("THE GAME IS OVER: " + name + " is the winner!");
-                break;
-            } else if (board.oWins()) {
-                System.out.println("THE GAME IS OVER: " + opponent.name + " is the winner!");
-                break;
-            } else if (board.isFull()) {
-                System.out.println("THE GAME IS OVER: It's a tie!");
-                break;
-            }
+        makeMove(); // Player makes a move
+        board.display();
+
+        // ✅ Check if the game has ended
+        if (board.xWins()) {
+            System.out.println("THE GAME IS OVER: " + name + " is the winner!");
+            return;
+        }
+
+        if (board.isFull()) {
+            System.out.println("THE GAME IS OVER: It's a tie!");
+            return;
+        }
+
+        // ✅ Only continue if the game is still ongoing
+        if (!board.isFull() && !board.xWins() && !board.oWins()) {
             opponent.play();
-            if (board.xWins() || board.oWins() || board.isFull()) {
-                break;
-            }
         }
     }
+
+
+
+
 
     /**
      * Abstract method for making a move.
